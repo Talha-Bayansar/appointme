@@ -87,10 +87,14 @@ export async function sendEmailVerificationCode(email: string) {
 export async function signin(email: string, code: string) {
   const verificationCode = await prisma.verificationCode.findFirst({
     where: {
-      AND: {
-        email: email.toLowerCase(),
-        code: code,
-      },
+      AND: [
+        {
+          email: email.toLowerCase(),
+        },
+        {
+          code: code,
+        },
+      ],
     },
   });
 
